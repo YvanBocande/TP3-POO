@@ -111,6 +111,8 @@ protected:
     // @param mt une référence à une variable MoyenTransport.
     //
 
+    const bool lireCatalogue(char* nomFichier);
+
 //----------------------------------------------------- Attributs protégés
     Collection col;
 
