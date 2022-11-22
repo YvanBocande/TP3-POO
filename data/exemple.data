@@ -1,0 +1,6 @@
+2;1
+s;Lyon;Bordeau;Train
+c;Lyon;Paris;2
+s;Lyon;Marseille;Bateau
+s;Marseille;Paris;Avion
+s;Lyon;Paris;Auto

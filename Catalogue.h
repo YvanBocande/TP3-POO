@@ -112,6 +112,8 @@ protected:
     //
 
     void sauvegarder() const;
+    
+    const bool lireCatalogue(char* nomFichier);
 
 //----------------------------------------------------- Attributs protégés
     Collection col;

@@ -13,6 +13,7 @@
 //-------------------------------------------------------- Include système
 
 #include <iostream>
+#include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <cstring>
@@ -275,6 +276,27 @@ void Catalogue::creerTrajetCompose()
         }
     }
     AjouterTrajet(*tc);
+}
+
+const bool Catalogue::lireCatalogue(char* nomFichier)
+{
+    ifstream monFlux(nomFichier);
+
+    if(monFlux)
+    {
+        char tmp;
+        int nbTs;
+        int nbTc;
+        monFlux >> nbTs;
+        monFlux >> tmp;
+        monFlux >> nbTc;
+        cout << "nbTs : " << nbTs << endl;
+        cout << "nbTc : " << nbTc << endl;
+    }
+    else
+    {
+        cout << "ERREUR: Impossible d'ouvrir le fichier en lecture." << endl;
+    }
 }
 //----- Fin de creerTrajetCompose
 
