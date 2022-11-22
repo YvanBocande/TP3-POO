@@ -111,6 +111,8 @@ protected:
     // @param mt une référence à une variable MoyenTransport.
     //
 
+    void sauvegarder() const;
+
 //----------------------------------------------------- Attributs protégés
     Collection col;
 

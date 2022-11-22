@@ -12,6 +12,7 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 //------------------------------------------------------ Include personnel
@@ -66,6 +67,13 @@ void Collection::Afficher() const{
         cout << endl;
     }
 } //Fin de Afficher
+
+void Collection::Sauvegarder(ostream os) const
+{
+    for(int i = 0; i < tailleActuelle; i++){
+        //elements[i]->Sauvegarder(os);
+    }
+}
 
 //-------------------------------------------- Constructeurs - destructeur
 
