@@ -288,11 +288,12 @@ const bool Catalogue::lireCatalogue(char* nomFichier)
         monFlux >> nbTc;
         cout << "nbTs : " << nbTs << endl;
         cout << "nbTc : " << nbTc << endl;
+
+        
     }
     else
     {
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture." << endl;
     }
 }
-//----- Fin de creerTrajetCompose
 
