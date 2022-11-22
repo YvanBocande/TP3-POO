@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cstring>
+#include <fstream>
 using namespace std;
 
 //------------------------------------------------------ Include personnel
@@ -59,6 +60,7 @@ void Catalogue::LancementMenu()
         cout << "\t2: Créer Trajet composé" << endl;
         cout << "\t3: Rechercher un parcours" << endl;
         cout << "\t4: Afficher le catalogue" << endl;
+        cout << "\t5: Sauvegarder" << endl;
         cout << "\t0 : Quitter" << endl;
         int choix;
         cin >> choix;
@@ -78,7 +80,9 @@ void Catalogue::LancementMenu()
             case 4:
                 afficherCatalogue();
                 break;
-
+            case 5:
+                sauvegarder();
+                break;
             default:
                 cout << "Choix incorrect";
                 continue; // revenir au menu
@@ -297,3 +301,39 @@ const bool Catalogue::lireCatalogue(char* nomFichier)
     }
 }
 
+void Catalogue::sauvegarder() const
+{
+    int choix;
+
+    for(;;)
+    {
+        cout << "Type de sauvegarde :" << endl;
+        cout << "\t 1 : Sans critère de sélecetion" << endl;
+        cout << "\t 2 : Selon le type" << endl;
+        cout << "\t 3 : Selon le départ et / ou l'arrivée" << endl;
+        cout << "\t 4 : Selon une sélection" << endl;
+        cin >> choix;
+
+        switch(choix){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                cout << "Choix erronné" << endl;
+                break;
+        }
+
+        ofstream myfile;
+        myfile.open ("example.txt");
+        
+        
+
+        myfile.close();
+        break;
+    }
+}

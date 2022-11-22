@@ -63,6 +63,8 @@ public:
     void Afficher() const;
     // Mode d'emploi : Affiche les trajets qui sont dans la collection
 
+    void Sauvegarder(ostream os) const;
+
 //-------------------------------------------- Constructeurs - destructeur
 
     Collection (const Collection & uneCollection);

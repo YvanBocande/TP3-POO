@@ -44,6 +44,8 @@ public:
     // Il imprime la ville de départ, la ville d'arrivée et le moyen de transport
     //
 
+    void Sauvegarder(ostream os) const;
+
 //-------------------------------------------- Constructeurs - destructeur
 
     TrajetSimple(const TrajetSimple & unTrajetSimple);

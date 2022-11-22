@@ -58,6 +58,11 @@ Trajet *TrajetCompose::GetTrajet(const int indice) const
     return col.GetTrajet(indice);
 }
 
+void TrajetCompose::Sauvegarder(ostream os) const
+{
+    
+}
+
 
 //-------------------------------------------- Constructeurs - destructeur
 
