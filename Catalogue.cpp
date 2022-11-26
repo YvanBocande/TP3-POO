@@ -358,9 +358,6 @@ const bool Catalogue::chargerTrajetCompose(string villeDepart, string villeArriv
         MoyenTransport mt = static_cast<MoyenTransport>(stoi(moyenTransport));
     }
 }
-
-    return false;
-}
 //----- Fin de creerTrajetCompose
 
 void Catalogue::sauvegarder() const
@@ -512,7 +509,8 @@ void Catalogue::sauvegarderParDepartArrivee(ofstream & os) const{
     col.Sauvegarder(os, BOTH, depart, arrivee, 0, col.GetNbTrajet());
 }
 
-void Catalogue::sauvegarderParSelection(ofstream & os) const{
+void Catalogue::sauvegarderParSelection(ofstream & os) const
+{
     int nbTrajets = col.GetNbTrajet();
 
     int startIndex;
