@@ -112,6 +112,14 @@ protected:
     //
 
     void sauvegarder() const;
+
+    void sauvegarderSansCritere(ofstream & os) const;
+
+    void sauvegarderParType(ofstream & os) const;
+
+    void sauvegarderParDepartArrivee(ofstream & os) const;
+
+    void sauvegarderParSelection(ofstream & os) const;
     
     const bool lireCatalogue(char* nomFichier);
 

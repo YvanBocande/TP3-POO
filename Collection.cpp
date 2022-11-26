@@ -13,6 +13,7 @@
 //-------------------------------------------------------- Include système
 #include <iostream>
 #include <fstream>
+#include <cstring>
 using namespace std;
 
 //------------------------------------------------------ Include personnel
@@ -68,17 +69,52 @@ void Collection::Afficher() const{
     }
 } //Fin de Afficher
 
-void Collection::CompterTypeTrajets(int & nbTss, int & nbTcs) const{
-    for(int i = 0; i < tailleActuelle; i++){
-        elements[i]->CompterTypeTrajet(nbTss, nbTcs);
-    }
-}
-
-void Collection::Sauvegarder(ofstream & os) const
+void Collection::Sauvegarder(ofstream & os, TypeTrajet typeTrajet, const char * depart, const char * arrivee, int n, int m, bool afficherCompteur) const
 {
-    for(int i = 0; i < tailleActuelle; i++){
-        elements[i]->Sauvegarder(os);
+    bool * trajetsASauvegarder = new bool[tailleActuelle];
+
+    for(int i = n; i < m; ++i){
+        bool peutEtreSauvegarder = true;
+
+        if(strlen(depart) != 0 && strcmp(depart, elements[i]->GetDepart()) != 0){
+            peutEtreSauvegarder = false;
+        }
+
+        if(strlen(arrivee) != 0 && strcmp(arrivee, elements[i]->GetArrivee()) != 0){
+            peutEtreSauvegarder = false;
+        }
+
+        if(typeTrajet != BOTH && elements[i]->GetTypeTrajet() != typeTrajet){
+            peutEtreSauvegarder = false;
+        }
+
+        trajetsASauvegarder[i] = peutEtreSauvegarder;
     }
+
+    if(afficherCompteur){
+        int nbTss = 0;
+        int nbTcs = 0;
+
+        for(int i = n; i < m; ++i){
+            if(trajetsASauvegarder[i]){
+                if(elements[i]->GetTypeTrajet() == SIMPLE){
+                    ++nbTss;
+                }else{
+                    ++nbTcs;
+                }
+            }
+        }
+
+        os << nbTss << ";" << nbTcs << endl;
+    }
+
+    for(int i = n; i < m; ++i){
+        if(trajetsASauvegarder[i]){
+            elements[i]->Sauvegarder(os);
+        }
+    }
+
+    delete [] trajetsASauvegarder;
 }
 
 //-------------------------------------------- Constructeurs - destructeur

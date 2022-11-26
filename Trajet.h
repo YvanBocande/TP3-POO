@@ -10,6 +10,12 @@
 #if ! defined ( TRAJET_H )
 #define TRAJET_H
 
+//--------------------------------------------------- Interfaces utilisées
+#include <fstream>
+using namespace std;
+
+//------------------------------------------------------------------ Types
+enum TypeTrajet { SIMPLE, COMPOSE, BOTH };
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Trajet>
@@ -37,7 +43,7 @@ public:
     // Mode d'emploi :
     // Affiche le trajet. Doit être redéfini dans les classes filles.
 
-    virtual void CompterTypeTrajet(int & nbTss, int & nbTcs) const = 0;
+    virtual TypeTrajet GetTypeTrajet() const = 0;
 
     virtual void Sauvegarder(ofstream & os) const = 0;
 

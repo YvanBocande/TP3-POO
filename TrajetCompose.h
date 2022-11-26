@@ -74,8 +74,8 @@ public:
     //
     // @return Un pointeur vers un objet Trajet.
     //
-
-    void CompterTypeTrajet(int & nbTss, int & nbTcs) const;
+    
+    TypeTrajet GetTypeTrajet() const;
 
     void Sauvegarder(ofstream & os) const;
 

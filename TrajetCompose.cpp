@@ -59,14 +59,15 @@ Trajet *TrajetCompose::GetTrajet(const int indice) const
     return col.GetTrajet(indice);
 }
 
-void TrajetCompose::CompterTypeTrajet(int & nbTss, int & nbTcs) const{
-    nbTcs++;
+TypeTrajet TrajetCompose::GetTypeTrajet() const
+{
+   return COMPOSE;
 }
 
 void TrajetCompose::Sauvegarder(ofstream & os) const
 {
     os << "c;" << GetDepart() << ";" << GetArrivee() << ";" << col.GetNbTrajet() << endl;
-    col.Sauvegarder(os);
+    col.Sauvegarder(os, BOTH, "", "", 0, col.GetNbTrajet(), false);
 }
 
 
