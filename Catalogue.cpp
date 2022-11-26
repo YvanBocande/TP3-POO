@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include <cstring>
 #include <fstream>
+#include <string>
 using namespace std;
 
 //------------------------------------------------------ Include personnel
@@ -60,7 +61,7 @@ void Catalogue::LancementMenu()
         cout << "\t2: Créer Trajet composé" << endl;
         cout << "\t3: Rechercher un parcours" << endl;
         cout << "\t4: Afficher le catalogue" << endl;
-        cout << "\t5: Sauvegarder" << endl;
+        cout << "\t6: Charger" << endl;
         cout << "\t0 : Quitter" << endl;
         int choix;
         cin >> choix;
@@ -80,8 +81,8 @@ void Catalogue::LancementMenu()
             case 4:
                 afficherCatalogue();
                 break;
-            case 5:
-                sauvegarder();
+            case 6:
+                charger();
                 break;
             default:
                 cout << "Choix incorrect";
@@ -278,7 +279,12 @@ void Catalogue::creerTrajetCompose()
     AjouterTrajet(*tc);
 }
 
-const bool Catalogue::lireCatalogue(char* nomFichier)
+const void Catalogue::charger()
+{
+    lireCatalogue("./data/exemple.data", "*","*");
+}
+
+const bool Catalogue::lireCatalogue(char* nomFichier, char* laVilleDep, char* laVilleArr)
 {
     ifstream monFlux(nomFichier);
 
@@ -287,11 +293,33 @@ const bool Catalogue::lireCatalogue(char* nomFichier)
         char tmp;
         int nbTs;
         int nbTc;
+        int nbTrajetslus = 0;
         monFlux >> nbTs;
         monFlux >> tmp;
-        monFlux >> nbTc;
+        monFlux >> nbTc;        
         cout << "nbTs : " << nbTs << endl;
         cout << "nbTc : " << nbTc << endl;
+
+        string typeTrajet;
+        string villeDep;
+        string villeArr;
+        string moyenTransport;
+        while(getline(monFlux,  typeTrajet, ';') &&  getline(monFlux, villeDep, ';') && getline(monFlux, villeArr, ';'))
+        {
+            if(nbTrajetslus==0)
+            {
+                typeTrajet = typeTrajet.substr(1);
+            }
+
+            cout << "typeTrajet : " << typeTrajet;
+            cout << "-villeDep : " << villeDep;
+            cout << "-villeArr : " << villeArr;
+            cout << "-moyenTrabsport : " << moyenTransport << endl;
+
+
+            nbTrajetslus++;
+        }
+        
     }
     else
     {

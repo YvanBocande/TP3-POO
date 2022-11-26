@@ -91,7 +91,6 @@ protected:
     Trajet ** elements;
     int tailleMax;
     int tailleActuelle;
-
 };
 
 

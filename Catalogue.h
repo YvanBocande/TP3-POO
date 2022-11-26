@@ -121,7 +121,9 @@ protected:
 
     void sauvegarderParSelection(ofstream & os) const;
     
-    const bool lireCatalogue(char* nomFichier);
+    const bool lireCatalogue(char* nomFichier, char* laVilleDep, char* laVilleArr);
+
+    const void charger();
 
 //----------------------------------------------------- Attributs protégés
     Collection col;
