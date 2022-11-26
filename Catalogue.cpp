@@ -61,6 +61,7 @@ void Catalogue::LancementMenu()
         cout << "\t2: Créer Trajet composé" << endl;
         cout << "\t3: Rechercher un parcours" << endl;
         cout << "\t4: Afficher le catalogue" << endl;
+        cout << "\t5: Sauvegarde" << endl;
         cout << "\t6: Charger" << endl;
         cout << "\t0 : Quitter" << endl;
         int choix;
@@ -80,6 +81,9 @@ void Catalogue::LancementMenu()
                 break;
             case 4:
                 afficherCatalogue();
+                break;
+            case 5:
+                sauvegarder();
                 break;
             case 6:
                 charger();
@@ -336,8 +340,12 @@ void Catalogue::sauvegarder() const
     cout << "Entrez le nom du fichier de sauvegarde" << endl;
     cin >> nomDuFichier;
 
+    char cheminDuFichier[tailleMaxNomVille + 10] = "./data/";
+
+    strcat(cheminDuFichier, nomDuFichier);
+
     ofstream os;
-    os.open(nomDuFichier);
+    os.open(cheminDuFichier);
 
     for(;;)
     {

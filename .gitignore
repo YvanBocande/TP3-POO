@@ -4,3 +4,4 @@ executable
 .vscode/*
 entry
 example.txt
+data/*
