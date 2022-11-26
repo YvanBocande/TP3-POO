@@ -61,6 +61,7 @@ void Catalogue::LancementMenu()
         cout << "\t2: Créer Trajet composé" << endl;
         cout << "\t3: Rechercher un parcours" << endl;
         cout << "\t4: Afficher le catalogue" << endl;
+        cout << "\t5: Sauvegarde" << endl;
         cout << "\t6: Charger" << endl;
         cout << "\t0 : Quitter" << endl;
         int choix;
@@ -80,6 +81,9 @@ void Catalogue::LancementMenu()
                 break;
             case 4:
                 afficherCatalogue();
+                break;
+            case 5:
+                sauvegarder();
                 break;
             case 6:
                 charger();
@@ -353,4 +357,199 @@ const bool Catalogue::chargerTrajetCompose(string villeDepart, string villeArriv
         getline(fichier, moyenTransport);
         MoyenTransport mt = static_cast<MoyenTransport>(stoi(moyenTransport));
     }
+}
+
+    return false;
+}
+//----- Fin de creerTrajetCompose
+
+void Catalogue::sauvegarder() const
+{
+    char nomDuFichier[tailleMaxNomVille];
+    cout << "Entrez le nom du fichier de sauvegarde" << endl;
+    cin >> nomDuFichier;
+
+    char cheminDuFichier[tailleMaxNomVille + 10] = "./data/";
+
+    strcat(cheminDuFichier, nomDuFichier);
+
+    ofstream os;
+    os.open(cheminDuFichier);
+
+    for(;;)
+    {
+        int choix;
+
+        cout << "Type de sauvegarde :" << endl;
+        cout << "\t 1 : Sans critère de sélecetion" << endl;
+        cout << "\t 2 : Selon le type" << endl;
+        cout << "\t 3 : Selon le départ et / ou l'arrivée" << endl;
+        cout << "\t 4 : Selon une sélection" << endl;
+
+        if(cin >> choix){
+            if(choix == 1){
+                sauvegarderSansCritere(os);
+                break;
+            }else if(choix == 2){
+                sauvegarderParType(os);
+                break;
+            }else if(choix == 3){
+                sauvegarderParDepartArrivee(os);
+                break;    
+            }else if(choix == 4){
+                sauvegarderParSelection(os);
+                break;
+            }else{
+                cout << "Choix erronné";
+            }
+        }else{
+            cout << "Error";
+        }
+    }
+
+    os.close();
+}
+
+void Catalogue::sauvegarderSansCritere(ofstream & os) const
+{
+    col.Sauvegarder(os, BOTH, "", "", 0, col.GetNbTrajet());
+}
+
+void Catalogue::sauvegarderParType(ofstream & os) const
+{
+    int choix;
+
+    for(;;)
+    {
+        cout << "Quel type sauvegarder :" << endl;
+        cout << "\t 1 : Trajets simples" << endl;
+        cout << "\t 2 : Trajet composes" << endl;
+        cin >> choix;
+
+        switch(choix){
+            case 1:
+                break;
+            case 2:
+                break;
+            default:
+                cout << "Choix erronné" << endl;
+                continue;
+        }
+
+        break;
+    }
+
+    TypeTrajet typeTrajet = SIMPLE;
+
+    if(choix == 2){
+        typeTrajet = COMPOSE;
+    }
+
+    col.Sauvegarder(os, typeTrajet, "", "", 0, col.GetNbTrajet());
+}
+
+void Catalogue::sauvegarderParDepartArrivee(ofstream & os) const{
+    int choixDepart;
+    char depart[tailleMaxNomVille];
+    char arrivee[tailleMaxNomVille];
+
+    for(;;)
+    {
+        cout << "Voulez vous indiquer une ville de départ ?" << endl;
+        cout << "\t 1 : Oui" << endl;
+        cout << "\t 2 : Non" << endl;
+        cin >> choixDepart;
+
+        switch(choixDepart){
+            case 1:
+                break;
+            case 2:
+                break;
+            default:
+                cout << "Choix erronné" << endl;
+                continue;
+        }
+
+        break;
+    }
+
+    int choixArrivee = choixDepart == 2 ? 1 : 2;
+
+    if(choixDepart == 1){
+        cout << "Indiquez la ville de départ :" << endl;
+        cin >> depart;
+
+        for(;;)
+        {
+            cout << "Voulez vous indiquer une ville d'arrivée ?" << endl;
+            cout << "\t 1 : Oui" << endl;
+            cout << "\t 2 : Non" << endl;
+            cin >> choixArrivee;
+
+            switch(choixArrivee){
+                case 1:
+                    break;
+                case 2:
+                    break;
+                default:
+                    cout << "Choix erronné" << endl;
+                    continue;
+            }
+
+            break;
+        }
+    }else{
+        depart[0] = '\0';
+    }
+
+    if(choixArrivee == 1){
+        cout << "Indiquez la ville d'arrivée :" << endl;
+        cin >> arrivee;
+    }else{
+        arrivee[0] = '\0';
+    }
+
+    col.Sauvegarder(os, BOTH, depart, arrivee, 0, col.GetNbTrajet());
+}
+
+void Catalogue::sauvegarderParSelection(ofstream & os) const{
+    int nbTrajets = col.GetNbTrajet();
+
+    int startIndex;
+
+    for(;;)
+    {
+        cout << "Indiquez l'indice n du début de l'intervalle (entre 1 et " << nbTrajets << ") :" << endl;
+        cin >> startIndex;
+
+        if(startIndex < 1){
+            cout << "Indice trop petit" << endl;
+            continue;
+        }else if(startIndex > nbTrajets){
+            cout << "Indice trop grand" << endl;
+            continue;
+        }
+
+        break;
+    }
+
+    int endIndex;
+
+    for(;;)
+    {
+        cout << "Indiquez l'indice m de la fin de l'intervalle (entre " << startIndex << " et " << nbTrajets << ") :" << endl;
+        cin >> endIndex;
+
+        if(endIndex < startIndex){
+            cout << "Indice trop petit" << endl;
+            continue;
+        }else if(startIndex > nbTrajets){
+            cout << "Indice trop grand" << endl;
+            continue;
+        }
+
+        break;
+    }
+
+    col.Sauvegarder(os, BOTH, "", "", startIndex - 1, endIndex);
 }

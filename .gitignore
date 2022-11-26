@@ -1,5 +1,7 @@
 *.o
 executable
 .vscode
+.vscode/*
 entry
 example.txt
+data/*

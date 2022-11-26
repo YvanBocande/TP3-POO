@@ -52,8 +52,8 @@ const char * TrajetSimple::GetArrivee() const
     return arrivee;
 }//Fin de GetArrivee
 
-void TrajetSimple::CompterTypeTrajet(int & nbTss, int & nbTcs) const{
-    nbTss++;
+TypeTrajet TrajetSimple::GetTypeTrajet() const{
+    return SIMPLE;
 }
 
 void TrajetSimple::Sauvegarder(ofstream & os) const

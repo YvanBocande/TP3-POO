@@ -12,6 +12,9 @@
 #define COLLECTION_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <fstream>
+using namespace std;
+
 #include "Trajet.h"
 
 //------------------------------------------------------------- Constantes
@@ -63,9 +66,7 @@ public:
     void Afficher() const;
     // Mode d'emploi : Affiche les trajets qui sont dans la collection
 
-    void CompterTypeTrajets(int & nbTss, int & nbTcs) const;
-
-    void Sauvegarder(ofstream & os) const;
+    void Sauvegarder(ofstream & os, TypeTrajet typeTrajet, const char * depart, const char * arrivee, int n, int m, bool afficherCompteur = true) const;
 
 //-------------------------------------------- Constructeurs - destructeur
 
