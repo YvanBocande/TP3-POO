@@ -75,8 +75,6 @@ public:
     // @return Un pointeur vers un objet Trajet.
     //
 
-    void Sauvegarder(ostream os) const;
-
 //-------------------------------------------- Constructeurs - destructeur
 
     TrajetCompose(const TrajetCompose & unTrajetCompose);

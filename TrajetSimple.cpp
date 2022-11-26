@@ -51,10 +51,6 @@ const char * TrajetSimple::GetArrivee() const
     return arrivee;
 }//Fin de GetArrivee
 
-void TrajetSimple::Sauvegarder(ostream os) const
-{
-    
-}
 
 //-------------------------------------------- Constructeurs - destructeur
 
