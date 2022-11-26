@@ -113,6 +113,10 @@ protected:
     
     const bool lireCatalogue(char* nomFichier, char* laVilleDep, char* laVilleArr);
 
+    TrajetSimple* chargerTrajetSimple(string villeDepart, string villeArrive, MoyenTransport moyenTransport);
+
+    const bool chargerTrajetCompose(string villeDepart, string villeArrive, string nbTrajets, ifstream &fichier);
+
     const void charger();
 
 //----------------------------------------------------- Attributs protégés

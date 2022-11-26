@@ -304,18 +304,22 @@ const bool Catalogue::lireCatalogue(char* nomFichier, char* laVilleDep, char* la
         string villeDep;
         string villeArr;
         string moyenTransport;
-        while(getline(monFlux,  typeTrajet, ';') &&  getline(monFlux, villeDep, ';') && getline(monFlux, villeArr, ';'))
+        while(getline(monFlux,  typeTrajet, ';') &&  getline(monFlux, villeDep, ';') && getline(monFlux, villeArr, ';') && getline(monFlux, moyenTransport))
         {
             if(nbTrajetslus==0)
             {
                 typeTrajet = typeTrajet.substr(1);
             }
 
-            cout << "typeTrajet : " << typeTrajet;
-            cout << "-villeDep : " << villeDep;
-            cout << "-villeArr : " << villeArr;
-            cout << "-moyenTrabsport : " << moyenTransport << endl;
+            MoyenTransport mt = static_cast<MoyenTransport>(stoi(moyenTransport));
 
+            if(typeTrajet == "s")
+            {
+                TrajetSimple *ts = chargerTrajetSimple(villeDep, villeArr, mt);
+                AjouterTrajet(*ts);
+            } else {
+                chargerTrajetCompose(villeDep, villeArr, moyenTransport, monFlux);
+            }
 
             nbTrajetslus++;
         }
@@ -324,5 +328,29 @@ const bool Catalogue::lireCatalogue(char* nomFichier, char* laVilleDep, char* la
     else
     {
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture." << endl;
+    }
+}
+
+TrajetSimple* Catalogue::chargerTrajetSimple(string villeDepart, string villeArrive, MoyenTransport moyenTransport)
+{
+    const char* vd = villeDepart.c_str();
+    const char* va = villeArrive.c_str();
+    TrajetSimple *ts = new TrajetSimple(vd, va, moyenTransport);
+    return ts;
+}
+
+const bool Catalogue::chargerTrajetCompose(string villeDepart, string villeArrive, string nbTrajets, ifstream &fichier)
+{
+    for(int i = 0; i < stoi(nbTrajets); i++)
+    {
+        string typeTrajet;
+        string villeDep;
+        string villeArr;
+        string moyenTransport;
+        getline(fichier,  typeTrajet, ';');
+        getline(fichier, villeDep, ';');
+        getline(fichier, villeArr, ';');
+        getline(fichier, moyenTransport);
+        MoyenTransport mt = static_cast<MoyenTransport>(stoi(moyenTransport));
     }
 }
