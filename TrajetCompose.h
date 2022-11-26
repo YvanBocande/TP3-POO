@@ -75,6 +75,10 @@ public:
     // @return Un pointeur vers un objet Trajet.
     //
 
+    void CompterTypeTrajet(int & nbTss, int & nbTcs) const;
+
+    void Sauvegarder(ofstream & os) const;
+
 //-------------------------------------------- Constructeurs - destructeur
 
     TrajetCompose(const TrajetCompose & unTrajetCompose);

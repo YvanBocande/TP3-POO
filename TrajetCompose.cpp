@@ -12,6 +12,7 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 //------------------------------------------------------ Include personnel
@@ -58,6 +59,15 @@ Trajet *TrajetCompose::GetTrajet(const int indice) const
     return col.GetTrajet(indice);
 }
 
+void TrajetCompose::CompterTypeTrajet(int & nbTss, int & nbTcs) const{
+    nbTcs++;
+}
+
+void TrajetCompose::Sauvegarder(ofstream & os) const
+{
+    os << "c;" << GetDepart() << ";" << GetArrivee() << ";" << col.GetNbTrajet() << endl;
+    col.Sauvegarder(os);
+}
 
 
 //-------------------------------------------- Constructeurs - destructeur

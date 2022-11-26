@@ -43,7 +43,10 @@ public:
     //*
     // Il imprime la ville de départ, la ville d'arrivée et le moyen de transport
     //
+    
+    void CompterTypeTrajet(int & nbTss, int & nbTcs) const;
 
+    void Sauvegarder(ofstream & os) const;
 
 //-------------------------------------------- Constructeurs - destructeur
 

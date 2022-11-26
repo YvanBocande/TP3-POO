@@ -68,6 +68,18 @@ void Collection::Afficher() const{
     }
 } //Fin de Afficher
 
+void Collection::CompterTypeTrajets(int & nbTss, int & nbTcs) const{
+    for(int i = 0; i < tailleActuelle; i++){
+        elements[i]->CompterTypeTrajet(nbTss, nbTcs);
+    }
+}
+
+void Collection::Sauvegarder(ofstream & os) const
+{
+    for(int i = 0; i < tailleActuelle; i++){
+        elements[i]->Sauvegarder(os);
+    }
+}
 
 //-------------------------------------------- Constructeurs - destructeur
 

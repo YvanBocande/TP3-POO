@@ -299,30 +299,51 @@ const bool Catalogue::lireCatalogue(char* nomFichier, char* laVilleDep, char* la
         monFlux >> nbTc;        
         cout << "nbTs : " << nbTs << endl;
         cout << "nbTc : " << nbTc << endl;
-
-        string typeTrajet;
-        string villeDep;
-        string villeArr;
-        string moyenTransport;
-        while(getline(monFlux,  typeTrajet, ';') &&  getline(monFlux, villeDep, ';') && getline(monFlux, villeArr, ';'))
-        {
-            if(nbTrajetslus==0)
-            {
-                typeTrajet = typeTrajet.substr(1);
-            }
-
-            cout << "typeTrajet : " << typeTrajet;
-            cout << "-villeDep : " << villeDep;
-            cout << "-villeArr : " << villeArr;
-            cout << "-moyenTrabsport : " << moyenTransport << endl;
-
-
-            nbTrajetslus++;
-        }
-        
     }
     else
     {
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture." << endl;
+    }
+}
+//----- Fin de creerTrajetCompose
+
+void Catalogue::sauvegarder() const
+{
+    int choix;
+
+    for(;;)
+    {
+        cout << "Type de sauvegarde :" << endl;
+        cout << "\t 1 : Sans critère de sélecetion" << endl;
+        cout << "\t 2 : Selon le type" << endl;
+        cout << "\t 3 : Selon le départ et / ou l'arrivée" << endl;
+        cout << "\t 4 : Selon une sélection" << endl;
+        cin >> choix;
+
+        switch(choix){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                cout << "Choix erronné" << endl;
+                break;
+        }
+
+        ofstream saveFile;
+        saveFile.open ("example.txt");
+        int nbTss = 0;
+        int nbTcs = 0;
+        col.CompterTypeTrajets(nbTss, nbTcs);
+        saveFile << nbTss << ";" << nbTcs << endl;
+
+        col.Sauvegarder(saveFile);
+
+        saveFile.close();
+        break;
     }
 }
