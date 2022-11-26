@@ -1,0 +1,6 @@
+2;1
+s;Lyon;Bordeaux;0
+c;Lyon;Paris;2
+s;Lyon;Marseille;1
+s;Marseille;Paris;2
+s;Lyon;Paris;3

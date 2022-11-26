@@ -37,7 +37,9 @@ public:
     // Mode d'emploi :
     // Affiche le trajet. Doit être redéfini dans les classes filles.
 
-    virtual void Sauvegarder(ostream os) const = 0;
+    virtual void CompterTypeTrajet(int & nbTss, int & nbTcs) const = 0;
+
+    virtual void Sauvegarder(ofstream & os) const = 0;
 
 //-------------------------------------------- Constructeurs - destructeur
 

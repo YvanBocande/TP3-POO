@@ -327,12 +327,16 @@ void Catalogue::sauvegarder() const
                 break;
         }
 
-        ofstream myfile;
-        myfile.open ("example.txt");
-        
-        
+        ofstream saveFile;
+        saveFile.open ("example.txt");
+        int nbTss = 0;
+        int nbTcs = 0;
+        col.CompterTypeTrajets(nbTss, nbTcs);
+        saveFile << nbTss << ";" << nbTcs << endl;
 
-        myfile.close();
+        col.Sauvegarder(saveFile);
+
+        saveFile.close();
         break;
     }
 }

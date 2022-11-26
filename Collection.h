@@ -63,7 +63,9 @@ public:
     void Afficher() const;
     // Mode d'emploi : Affiche les trajets qui sont dans la collection
 
-    void Sauvegarder(ostream os) const;
+    void CompterTypeTrajets(int & nbTss, int & nbTcs) const;
+
+    void Sauvegarder(ofstream & os) const;
 
 //-------------------------------------------- Constructeurs - destructeur
 
