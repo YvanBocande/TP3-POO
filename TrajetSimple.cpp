@@ -12,6 +12,7 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <fstream>
 #include <cstring>
 using namespace std;
 
@@ -51,6 +52,14 @@ const char * TrajetSimple::GetArrivee() const
     return arrivee;
 }//Fin de GetArrivee
 
+void TrajetSimple::CompterTypeTrajet(int & nbTss, int & nbTcs) const{
+    nbTss++;
+}
+
+void TrajetSimple::Sauvegarder(ofstream & os) const
+{
+    os << "s;" << depart << ";" << arrivee << ";" << transport << endl;
+}
 
 //-------------------------------------------- Constructeurs - destructeur
 
