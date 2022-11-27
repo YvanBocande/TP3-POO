@@ -681,7 +681,7 @@ const void Catalogue::lireCatalogueIntervalle(char *nomFichier, int indiceDepart
 } // Fin de lireCatalogueIntervalle
 
 TrajetSimple *Catalogue::chargerTrajetSimple(ifstream &monFlux, const char *villeDepRequis, const char *villeArrRequis)
-{
+{    
     string villeDepart;
     string villeArrive;
     string moyenTransport;
@@ -707,9 +707,6 @@ TrajetSimple *Catalogue::chargerTrajetSimple(ifstream &monFlux, const char *vill
 
 TrajetCompose *Catalogue::chargerTrajetCompose(ifstream &monFlux, const char *villeDepRequis, const char *villeArrRequis)
 {
-
-    cout << "Chargement d'un trajet composé" << endl;
-
     string villeDepart;
     string villeArrive;
     string nbTrajets;
@@ -719,7 +716,9 @@ TrajetCompose *Catalogue::chargerTrajetCompose(ifstream &monFlux, const char *vi
     getline(monFlux, villeArrive, ';');
     getline(monFlux, nbTrajets);
 
-    if ((strcmp(villeDepRequis, "*") && strcmp(villeArrRequis, "*")) || (villeDepRequis == villeDepart && strcmp(villeArrRequis, "*")) || (villeArrRequis == villeArrive && strcmp(villeDepRequis, "*")) || (villeDepRequis == villeDepart && villeArrRequis == villeArrive))
+    cout << strcmp(villeDepRequis, "*")<< endl;
+
+    if ((!strcmp(villeDepRequis, "*") && !strcmp(villeArrRequis, "*")) || (villeDepRequis == villeDepart && !strcmp(villeArrRequis, "*")) || (villeArrRequis == villeArrive && strcmp(villeDepRequis, "*")) || (villeDepRequis == villeDepart && villeArrRequis == villeArrive))
     {
         TrajetCompose *tc = new TrajetCompose();
 
