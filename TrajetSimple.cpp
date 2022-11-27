@@ -25,7 +25,7 @@ using namespace std;
 
 void TrajetSimple::Afficher() const
 {
-    cout << "Ville de depart : " << depart << ", ville d'arrivee : " << arrivee << ", moyen de transport : ";
+    cout << "Départ : " << depart << ", arrivée : " << arrivee << ", moyen de transport : ";
     switch (transport) {
         case MoyenTransport::AVION:
             cout << "Avion";
@@ -40,26 +40,26 @@ void TrajetSimple::Afficher() const
             cout << "Train";
             break;
     }
-}//Fin de Afficher
+} // Fin de Afficher
 
 const char * TrajetSimple::GetDepart() const
 {
     return depart;
-}//Fin de GetDepart
+}// Fin de GetDepart
 
 const char * TrajetSimple::GetArrivee() const
 {
     return arrivee;
-}//Fin de GetArrivee
+} // Fin de GetArrivee
 
 TypeTrajet TrajetSimple::GetTypeTrajet() const{
     return SIMPLE;
-}
+} // Fin de GetTypeTrajet
 
 void TrajetSimple::Sauvegarder(ofstream & os) const
 {
     os << "s;" << depart << ";" << arrivee << ";" << transport << endl;
-}
+} // Fin de Sauvegarder
 
 //-------------------------------------------- Constructeurs - destructeur
 
@@ -73,12 +73,10 @@ TrajetSimple::TrajetSimple(const char *leDepart, const char *lArrive, MoyenTrans
     strcpy(depart, leDepart);
     arrivee = new char[strlen(lArrive)+1];
     strcpy(arrivee, lArrive);
-}//Fin de TrajetSimple
+} // Fin de TrajetSimple
 
 
 TrajetSimple::~TrajetSimple ()
-// Algorithme :
-//
 {
 #ifdef MAP
     cout << "Appel au destructeur de <TrajetSimple>" << endl;
