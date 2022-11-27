@@ -1,37 +1,25 @@
+CC = g++
 FLAGS = -ansi -pedantic -Wall -std=c++11 -DMAP
+SRC = $(wildcard *.cpp)
+OBJ = $(SRC:.cpp=.o)
+EXEC = prog
 
-executable: Catalogue.o Trajet.o TrajetSimple.o TrajetCompose.o Collection.o main.o
-	g++ $(FLAGS) -o executable Catalogue.o Trajet.o TrajetSimple.o TrajetCompose.o Collection.o main.o
+all : $(EXEC)
 
-map: Catalogue.o Trajet.o TrajetSimple.o TrajetCompose.o Collection.o main.o
-	g++ $(FLAGS) -o executable Catalogue.o Trajet.o TrajetSimple.o TrajetCompose.o Collection.o main.o -DMAP
+%.o : %.cpp
+	$(CC) $(FLAGS) -o $@ -c $<
 
-Catalogue.o: Catalogue.h Catalogue.cpp
-	g++ $(FLAGS) -o Catalogue.o -c  Catalogue.cpp
-
-Trajet.o: Trajet.h Trajet.cpp
-	g++ $(FLAGS) -o Trajet.o -c Trajet.cpp
-
-TrajetSimple.o: TrajetSimple.h TrajetSimple.cpp
-	g++ $(FLAGS) -o TrajetSimple.o -c TrajetSimple.cpp
-
-TrajetCompose.o: TrajetCompose.h TrajetCompose.cpp
-	g++ $(FLAGS) -o TrajetCompose.o -c TrajetCompose.cpp
-
-Collection.o: Collection.h Collection.cpp
-	g++ $(FLAGS) -o Collection.o -c Collection.cpp
-
-main.o: main.cpp
-	g++ $(FLAGS) -o main.o -c main.cpp
+$(EXEC) : $(OBJ)
+	$(CC) $(FLAGS) -o $(EXEC) $^
 
 remove:
 	rm -f *.o
 
 clean:
-	rm -f *.o executable
+	rm -f *.o $(EXEC)
 
 zip:
-	tar -cvzf TP2.tar.gz *.cpp *.h makefile
+	tar -cvzf TP3.tar.gz *.cpp *.h Makefile
 
 valgrind :
-	valgrind --leak-check=full -s ./executable
+	valgrind --leak-check=full -s ./$(EXEC)
