@@ -113,14 +113,32 @@ protected:
     //
 
     void sauvegarder() const;
+    // Mode d'emploi :
+    // Affiche le menu de sauvegarde
 
     void sauvegarderSansCritere(ofstream & os) const;
+    // Mode d'emploi :
+    // Sauvegarde tout le catalogue sans critère spécifique
+    //
+    // @param os le fichier dans lequel écrire la sauvegarde
 
     void sauvegarderParType(ofstream & os) const;
+    // Mode d'emploi :
+    // Sauvegarde les trajets de la collection dont le type est indiqué par l'utilisateur
+    //
+    // @param os le fichier dans lequel écrire la sauvegarde
 
     void sauvegarderParDepartArrivee(ofstream & os) const;
+    // Mode d'emploi :
+    // Sauvegarde les trajets de la collection dont le départ et / ou l'arrivée correspondent à l'entrée utilisateur
+    //
+    // @param os le fichier dans lequel écrire la sauvegarde
 
     void sauvegarderParSelection(ofstream & os) const;
+    // Mode d'emploi :
+    // Sauvegarde les trajets de la collection de l'indice n à l'indice m indiqués par l'utilisateur
+    //
+    // @param os le fichier dans lequel écrire la sauvegarde
 
     void chargerParType(char* nomFichier);
 

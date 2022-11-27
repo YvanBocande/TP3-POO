@@ -44,8 +44,14 @@ public:
     // Affiche le trajet. Doit être redéfini dans les classes filles.
 
     virtual TypeTrajet GetTypeTrajet() const = 0;
+    // Mode d'emploi :
+    // Retourne le type de trajet
 
     virtual void Sauvegarder(ofstream & os) const = 0;
+    // Mode d'emploi :
+    // Sauvegarde le le trajet dans le fichier os
+    //
+    // @param os le fichier dans lequel écrire la sauvegarde
 
 //-------------------------------------------- Constructeurs - destructeur
 

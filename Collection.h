@@ -67,6 +67,16 @@ public:
     // Mode d'emploi : Affiche les trajets qui sont dans la collection
 
     void Sauvegarder(ofstream & os, TypeTrajet typeTrajet, const char * depart, const char * arrivee, int n, int m, bool afficherCompteur = true) const;
+    // Mode d'emploi :
+    // Permet de sauvegarder la collection dans os
+    //
+    // @param os le fichier dans lequel écrire la sauvegarde
+    // @param typeTrajet le type de trajet à sauvegarder
+    // @param depart si non vide, sauvegarde uniquement les trajets dont la ville de départ correspond à depart
+    // @param arrivee si non vide, sauvegarde uniquement les trajets dont la ville d'arrivée correspond à arrivee
+    // @param n sauvegarde les trajets à partir de l'indice n
+    // @param m sauvegarde les trajets jusqu'à l'indice m
+    // @param afficherCompteur ajoute ou non le compteur de trajets simples / complexes
 
 //-------------------------------------------- Constructeurs - destructeur
 

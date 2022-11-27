@@ -115,7 +115,7 @@ void Collection::Sauvegarder(ofstream & os, TypeTrajet typeTrajet, const char * 
     }
 
     delete [] trajetsASauvegarder;
-}
+}// Fin de Sauvegarder
 
 //-------------------------------------------- Constructeurs - destructeur
 

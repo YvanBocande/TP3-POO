@@ -76,8 +76,14 @@ public:
     //
     
     TypeTrajet GetTypeTrajet() const;
+    // Mode d'emploi :
+    // Retourne le TypeTrajet COMPOSE
 
     void Sauvegarder(ofstream & os) const;
+    // Mode d'emploi :
+    // Ecrit dans le fichier os les informations de ce trajet compose
+    //
+    // @param os le fichier dans lequel écrire la sauvegarde
 
 //-------------------------------------------- Constructeurs - destructeur
 

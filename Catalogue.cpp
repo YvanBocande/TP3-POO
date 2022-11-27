@@ -197,7 +197,7 @@ void Catalogue::selectionMoyenTransport(MoyenTransport & mt)
                 break;
         }
     }
-}// Fin de selectionMoyenTransport
+} // Fin de selectionMoyenTransport
 
 
 void Catalogue::creerTrajetSimple()
@@ -228,7 +228,7 @@ void Catalogue::creerTrajetSimple()
     delete [] villeDep;
     delete [] villeArr;
 
-}// Fin de creerTrajetSimple
+} // Fin de creerTrajetSimple
 
 
 void Catalogue::creerTrajetCompose()
@@ -281,7 +281,7 @@ void Catalogue::creerTrajetCompose()
         }
     }
     AjouterTrajet(*tc);
-}
+} // Fin de creerTrajetCompose
 
 const void Catalogue::charger()
 {
@@ -331,7 +331,7 @@ const void Catalogue::charger()
     } else {
         cout << "Le fichier n'existe pas" << endl;
     }
-}
+} // Fin de charger
 
 void Catalogue::chargerParType(char* nomFichier)
 {
@@ -358,7 +358,7 @@ void Catalogue::chargerParType(char* nomFichier)
 
         break;
     }
-}
+} // Fin de chargerParType
 
 void Catalogue::chargerParDepartArrivee(char* nomFichier)
 {
@@ -425,7 +425,7 @@ void Catalogue::chargerParDepartArrivee(char* nomFichier)
     }
 
     lireCatalogue(nomFichier, depart, arrivee, '*');
-}
+} // Fin de chargerParDepartArrivee
 
 void Catalogue::chargerParSelection(char* nomFichier)
 {
@@ -468,7 +468,7 @@ void Catalogue::chargerParSelection(char* nomFichier)
     }
 
     lireCatalogueIntervalle(nomFichier, startIndex-1, endIndex-1);
-}
+} // Fin de chargerParSelection
 
 const int Catalogue::lireNbTrajetsFichier(char* nomFichier){
     ifstream flux(nomFichier);
@@ -492,7 +492,7 @@ const int Catalogue::lireNbTrajetsFichier(char* nomFichier){
         return 0;
     }
     return 0;
-}
+} // Fin de lireNbTrajetsFichier
 
 const void Catalogue::lireCatalogue(const char* nomFichier, const char* villeDepRequis, const char* villeArrRequis, const char type)
 {
@@ -564,7 +564,7 @@ const void Catalogue::lireCatalogue(const char* nomFichier, const char* villeDep
     {
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture." << endl;
     }
-}
+} // Fin de lireCatalogue
 
 const void Catalogue::lireCatalogueIntervalle(char* nomFichier, int indiceDepart, int indiceArrivee)
 {
@@ -636,7 +636,7 @@ const void Catalogue::lireCatalogueIntervalle(char* nomFichier, int indiceDepart
     {
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture." << endl;
     }
-}
+} // Fin de lireCatalogueIntervalle
 
 
 TrajetSimple* Catalogue::chargerTrajetSimple(ifstream &monFlux, const char* villeDepRequis, const char* villeArrRequis)
@@ -662,7 +662,7 @@ TrajetSimple* Catalogue::chargerTrajetSimple(ifstream &monFlux, const char* vill
     {
         return nullptr;
     }
-}
+} // Fin de chargerTrajetSimple
 
 
 TrajetCompose* Catalogue::chargerTrajetCompose(ifstream &monFlux, const char* villeDepRequis, const char* villeArrRequis)
@@ -696,8 +696,7 @@ TrajetCompose* Catalogue::chargerTrajetCompose(ifstream &monFlux, const char* vi
         return nullptr;
     }
 
-}
-//----- Fin de creerTrajetCompose
+} // Fin de chargerTrajetCompose
 
 
 
@@ -779,12 +778,12 @@ void Catalogue::sauvegarder() const
     cout << "Sauvegarde effectuée avec succès" << endl;
 
     os.close();
-}
+} // Fin de sauvegarder
 
 void Catalogue::sauvegarderSansCritere(ofstream & os) const
 {
     col.Sauvegarder(os, BOTH, "", "", 0, col.GetNbTrajet());
-}
+} // Fin de sauvegarderSansCritere
 
 void Catalogue::sauvegarderParType(ofstream & os) const
 {
@@ -817,7 +816,7 @@ void Catalogue::sauvegarderParType(ofstream & os) const
     }
 
     col.Sauvegarder(os, typeTrajet, "", "", 0, col.GetNbTrajet());
-}
+} // Fin de sauvegarderParType
 
 void Catalogue::sauvegarderParDepartArrivee(ofstream & os) const{
     int choixDepart;
@@ -881,7 +880,7 @@ void Catalogue::sauvegarderParDepartArrivee(ofstream & os) const{
     }
 
     col.Sauvegarder(os, BOTH, depart, arrivee, 0, col.GetNbTrajet());
-}
+} // Fin de sauvegarderParDepartArrivee
 
 void Catalogue::sauvegarderParSelection(ofstream & os) const
 {
@@ -924,6 +923,6 @@ void Catalogue::sauvegarderParSelection(ofstream & os) const
     }
 
     col.Sauvegarder(os, BOTH, "", "", startIndex - 1, endIndex);
-}
+} // Fin de sauvegarderParSelection
 
 
