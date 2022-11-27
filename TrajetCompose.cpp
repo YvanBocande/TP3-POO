@@ -37,15 +37,13 @@ const char * TrajetCompose::GetDepart() const
 
 void TrajetCompose::Afficher() const
 {
-    cout << "Ville de Départ : " << GetDepart() << ", ville d'arrivée : " << GetArrivee() << ", villes intermédiaires : ( " ;
+    cout << "Départ : " << GetDepart() << ", arrivée : " << GetArrivee() << ", étapes : ";
+
     for(int i = 0; i < col.GetNbTrajet() ; i++)
     {
+        cout << endl << "\t- ";
         col.GetTrajet(i)->Afficher();
-        if(i != col.GetNbTrajet() - 1){
-            cout << ", ";
-        }
     }
-    cout << ")";
 }
 
 void TrajetCompose::AjouterTrajet(TrajetSimple & t)

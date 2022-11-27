@@ -63,12 +63,12 @@ void Catalogue::LancementMenu()
         cout << "\t4: Afficher le catalogue" << endl;
         cout << "\t5: Sauvegarde" << endl;
         cout << "\t6: Charger" << endl;
-        cout << "\t0 : Quitter" << endl;
+        cout << "\t0: Quitter" << endl;
         int choix;
         cin >> choix;
         switch (choix) {
             case 0:
-                cout << "Au revoir !";
+                cout << "Au revoir !" << endl;
                 return;
             case 1:
                 creerTrajetSimple();

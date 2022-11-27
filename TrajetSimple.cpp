@@ -25,7 +25,7 @@ using namespace std;
 
 void TrajetSimple::Afficher() const
 {
-    cout << "Ville de depart : " << depart << ", ville d'arrivee : " << arrivee << ", moyen de transport : ";
+    cout << "Départ : " << depart << ", arrivée : " << arrivee << ", moyen de transport : ";
     switch (transport) {
         case MoyenTransport::AVION:
             cout << "Avion";
