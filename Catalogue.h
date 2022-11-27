@@ -13,6 +13,7 @@
 //--------------------------------------------------- Interfaces utilisées
 #include "Collection.h"
 #include "TrajetSimple.h"
+#include "TrajetCompose.h"
 
 
 //------------------------------------------------------------------------
@@ -121,11 +122,13 @@ protected:
 
     void sauvegarderParSelection(ofstream & os) const;
     
-    const bool lireCatalogue(char* nomFichier, char* laVilleDep, char* laVilleArr);
+    const void lireCatalogue(char* nomFichier, char* laVilleDep, char* laVilleArr, char type);
 
-    TrajetSimple* chargerTrajetSimple(string villeDepart, string villeArrive, MoyenTransport moyenTransport);
+    const void lireCatalogueIntervalle(char* nomFichier, int indiceDepart, int indiceArrivee);
 
-    const bool chargerTrajetCompose(string villeDepart, string villeArrive, string nbTrajets, ifstream &fichier);
+    TrajetSimple* chargerTrajetSimple(ifstream &monFlux, char* villeDepRequis, char* villeArrRequis);
+
+    TrajetCompose* chargerTrajetCompose(ifstream &fmonFlux, char* villeDepRequis, char* villeArrRequis);
 
     const void charger();
 

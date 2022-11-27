@@ -285,44 +285,69 @@ void Catalogue::creerTrajetCompose()
 
 const void Catalogue::charger()
 {
-    lireCatalogue("./data/exemple.data", "*","*");
+    lireCatalogueIntervalle("./data/exemple.data", 6 , 9);
 }
 
-const bool Catalogue::lireCatalogue(char* nomFichier, char* laVilleDep, char* laVilleArr)
+const void Catalogue::lireCatalogue(char* nomFichier, char* villeDepRequis, char* villeArrRequis, char type)
 {
     ifstream monFlux(nomFichier);
 
     if(monFlux)
     {
         char tmp;
+        string trash;
         int nbTs;
         int nbTc;
         int nbTrajetslus = 0;
+
+
         monFlux >> nbTs;
         monFlux >> tmp;
         monFlux >> nbTc;        
-        cout << "nbTs : " << nbTs << endl;
-        cout << "nbTc : " << nbTc << endl;
 
         string typeTrajet;
-        string villeDep;
-        string villeArr;
-        string moyenTransport;
-        while(getline(monFlux,  typeTrajet, ';') &&  getline(monFlux, villeDep, ';') && getline(monFlux, villeArr, ';') && getline(monFlux, moyenTransport))
+
+        while(getline(monFlux,  typeTrajet, ';'))
         {
             if(nbTrajetslus==0)
             {
                 typeTrajet = typeTrajet.substr(1);
             }
 
-            MoyenTransport mt = static_cast<MoyenTransport>(stoi(moyenTransport));
 
             if(typeTrajet == "s")
             {
-                TrajetSimple *ts = chargerTrajetSimple(villeDep, villeArr, mt);
-                AjouterTrajet(*ts);
+                if(type == 's' || type == '*')
+                {
+                    TrajetSimple *ts = chargerTrajetSimple(monFlux, villeDepRequis, villeArrRequis);
+                    if(ts != nullptr)
+                    {
+                        AjouterTrajet(*ts);
+                    }
+                } else {
+                    getline(monFlux, trash);
+                }
             } else {
-                chargerTrajetCompose(villeDep, villeArr, moyenTransport, monFlux);
+                if(type == 'c' || type == '*')
+                {
+                    TrajetCompose *tc = chargerTrajetCompose(monFlux, villeDepRequis, villeArrRequis);
+                    if(tc != nullptr)
+                    {
+                        AjouterTrajet(*tc);
+                    }
+                } else {
+                    getline(monFlux, trash, ';');
+                    getline(monFlux, trash, ';');
+
+                    string strNbTrajetsSimples;
+                    getline(monFlux, strNbTrajetsSimples);
+
+                    int nbTrajetsSimples = stoi(strNbTrajetsSimples);
+                    for(int i = 0; i < nbTrajetsSimples; i++)
+                    {
+                        getline(monFlux, trash);
+                    }
+                }
             }
 
             nbTrajetslus++;
@@ -335,30 +360,138 @@ const bool Catalogue::lireCatalogue(char* nomFichier, char* laVilleDep, char* la
     }
 }
 
-TrajetSimple* Catalogue::chargerTrajetSimple(string villeDepart, string villeArrive, MoyenTransport moyenTransport)
+const void Catalogue::lireCatalogueIntervalle(char* nomFichier, int indiceDepart, int indiceArrivee)
 {
-    const char* vd = villeDepart.c_str();
-    const char* va = villeArrive.c_str();
-    TrajetSimple *ts = new TrajetSimple(vd, va, moyenTransport);
-    return ts;
-}
+        ifstream monFlux(nomFichier);
 
-const bool Catalogue::chargerTrajetCompose(string villeDepart, string villeArrive, string nbTrajets, ifstream &fichier)
-{
-    for(int i = 0; i < stoi(nbTrajets); i++)
+    if(monFlux)
     {
+        char tmp;
+        string trash;
+        int nbTs;
+        int nbTc;
+
+        monFlux >> nbTs;
+        monFlux >> tmp;
+        monFlux >> nbTc;        
+
         string typeTrajet;
-        string villeDep;
-        string villeArr;
-        string moyenTransport;
-        getline(fichier,  typeTrajet, ';');
-        getline(fichier, villeDep, ';');
-        getline(fichier, villeArr, ';');
-        getline(fichier, moyenTransport);
-        MoyenTransport mt = static_cast<MoyenTransport>(stoi(moyenTransport));
+
+        int trajetsParcourus = 0;
+        while (trajetsParcourus != indiceDepart-1)
+        {
+            getline(monFlux, typeTrajet, ';');
+            
+            if(trajetsParcourus==0)
+            {
+                typeTrajet = typeTrajet.substr(1);
+            }
+
+            cout<<"type: "<<typeTrajet<<endl;
+
+            if(typeTrajet == "s")
+            {
+                getline(monFlux, trash);
+            } else {
+                getline(monFlux, trash, ';');
+                getline(monFlux, trash, ';');
+
+                string strNbTrajetsSimples;
+                getline(monFlux, strNbTrajetsSimples);
+                int nbTrajetsSimples = stoi(strNbTrajetsSimples);
+                for(int i = 0; i < nbTrajetsSimples; i++)
+                {
+                    getline(monFlux, trash);
+                }
+            }
+
+            trajetsParcourus++;
+        }
+        
+
+        for(int i = indiceDepart; i < indiceArrivee+1; i++)
+        {
+            getline(monFlux,  typeTrajet, ';');
+
+            if(typeTrajet == "s")
+            {
+                TrajetSimple *ts = chargerTrajetSimple(monFlux, "*", "*");
+                AjouterTrajet(*ts);
+            } else {
+                TrajetCompose *tc = chargerTrajetCompose(monFlux, "*", "*");
+                AjouterTrajet(*tc);
+            }
+
+            trajetsParcourus++;
+        }
+    }
+    else
+    {
+        cout << "ERREUR: Impossible d'ouvrir le fichier en lecture." << endl;
     }
 }
+
+
+TrajetSimple* Catalogue::chargerTrajetSimple(ifstream &monFlux, char* villeDepRequis, char* villeArrRequis)
+{
+    string villeDepart;
+    string villeArrive;
+    string moyenTransport;
+
+    getline(monFlux, villeDepart, ';');
+    getline(monFlux, villeArrive, ';');
+    getline(monFlux, moyenTransport);
+
+
+    MoyenTransport mt = static_cast<MoyenTransport>(stoi(moyenTransport));
+    const char* vd = villeDepart.c_str();
+    const char* va = villeArrive.c_str();
+
+    if((strcmp(villeDepRequis, "*") == 0 && strcmp(villeArrRequis, "*") == 0) || (strcmp(villeDepRequis, vd) == 0 && strcmp(villeArrRequis, "*") == 0) || (strcmp(villeArrRequis, va) == 0 && strcmp(villeDepRequis, "*") == 0) || (strcmp(villeDepRequis, vd) == 0 && strcmp(villeArrRequis, va) == 0))
+    {
+        TrajetSimple *ts = new TrajetSimple(vd, va, mt);
+        return ts;
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
+
+TrajetCompose* Catalogue::chargerTrajetCompose(ifstream &monFlux, char* villeDepRequis, char* villeArrRequis)
+{
+
+    string villeDepart;
+    string villeArrive;
+    string nbTrajets;
+    string trash;
+
+    getline(monFlux, villeDepart, ';');
+    getline(monFlux, villeArrive, ';');
+    getline(monFlux, nbTrajets);
+
+    if((villeDepRequis == "*" && villeArrRequis == "*") || (villeDepRequis == villeDepart && villeArrRequis == "*") || (villeArrRequis == villeArrive && villeDepRequis == "*") || ( villeDepRequis == villeDepart && villeArrRequis == villeArrive))
+    {
+        TrajetCompose *tc = new TrajetCompose();
+
+        int nbTraj = stoi(nbTrajets);
+        for(int i = 0; i < nbTraj; i++)
+        {
+            getline(monFlux, trash, ';');
+            TrajetSimple *ts = chargerTrajetSimple(monFlux,"*", "*");
+            tc->AjouterTrajet(*ts);
+        }
+        return tc;
+    } else 
+    {
+        return nullptr;
+    }
+
+}
 //----- Fin de creerTrajetCompose
+
+
 
 void Catalogue::sauvegarder() const
 {
