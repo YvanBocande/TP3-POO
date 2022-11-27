@@ -711,39 +711,72 @@ void Catalogue::sauvegarder() const
 
     strcat(cheminDuFichier, nomDuFichier);
 
+    ifstream is;
+    is.open(cheminDuFichier);
+
+    cout << "Good ? : " << is.good() << endl;
+
+    if(is.good()){
+        for(;;)
+        {
+            int choix;
+
+            cout << "Ce fichier de sauvegarde existe déjà, voulez vous le remplacer ?" << endl;
+            cout << "\t 1 : Oui" << endl;
+            cout << "\t 2 : Non" << endl;
+            cin >> choix;
+
+            switch(choix){
+                case 1:
+                    break;
+                case 2:
+                    return;
+                default:
+                    cout << "Choix erronné" << endl;
+                    continue;
+            }
+
+            break;
+        }
+    }
+
     ofstream os;
     os.open(cheminDuFichier);
 
-    for(;;)
-    {
-        int choix;
+    if(col.GetNbTrajet() != 0){
+        for(;;)
+        {
+            int choix;
 
-        cout << "Type de sauvegarde :" << endl;
-        cout << "\t 1 : Sans critère de sélecetion" << endl;
-        cout << "\t 2 : Selon le type" << endl;
-        cout << "\t 3 : Selon le départ et / ou l'arrivée" << endl;
-        cout << "\t 4 : Selon une sélection" << endl;
+            cout << "Type de sauvegarde :" << endl;
+            cout << "\t 1 : Sans critère de sélecetion" << endl;
+            cout << "\t 2 : Selon le type" << endl;
+            cout << "\t 3 : Selon le départ et / ou l'arrivée" << endl;
+            cout << "\t 4 : Selon une sélection" << endl;
 
-        if(cin >> choix){
-            if(choix == 1){
-                sauvegarderSansCritere(os);
-                break;
-            }else if(choix == 2){
-                sauvegarderParType(os);
-                break;
-            }else if(choix == 3){
-                sauvegarderParDepartArrivee(os);
-                break;    
-            }else if(choix == 4){
-                sauvegarderParSelection(os);
-                break;
+            if(cin >> choix){
+                if(choix == 1){
+                    sauvegarderSansCritere(os);
+                    break;
+                }else if(choix == 2){
+                    sauvegarderParType(os);
+                    break;
+                }else if(choix == 3){
+                    sauvegarderParDepartArrivee(os);
+                    break;    
+                }else if(choix == 4){
+                    sauvegarderParSelection(os);
+                    break;
+                }else{
+                    cout << "Choix erronné";
+                }
             }else{
-                cout << "Choix erronné";
+                cout << "Error";
             }
-        }else{
-            cout << "Error";
         }
     }
+
+    cout << "Sauvegarde effectuée avec succès" << endl;
 
     os.close();
 }
