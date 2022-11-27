@@ -1,5 +1,5 @@
 *.o
-executable
+prog
 .vscode
 .vscode/*
 entry
