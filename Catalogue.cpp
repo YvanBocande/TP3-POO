@@ -491,9 +491,10 @@ const int Catalogue::lireNbTrajetsFichier(char* nomFichier){
         cout << "Erreur lors de l'ouverture du fichier" << endl;
         return 0;
     }
+    return 0;
 }
 
-const void Catalogue::lireCatalogue(char* nomFichier, char* villeDepRequis, char* villeArrRequis, char type)
+const void Catalogue::lireCatalogue(const char* nomFichier, const char* villeDepRequis, const char* villeArrRequis, const char type)
 {
     ifstream monFlux(nomFichier);
 
@@ -638,7 +639,7 @@ const void Catalogue::lireCatalogueIntervalle(char* nomFichier, int indiceDepart
 }
 
 
-TrajetSimple* Catalogue::chargerTrajetSimple(ifstream &monFlux, char* villeDepRequis, char* villeArrRequis)
+TrajetSimple* Catalogue::chargerTrajetSimple(ifstream &monFlux, const char* villeDepRequis, const char* villeArrRequis)
 {
     string villeDepart;
     string villeArrive;
@@ -647,11 +648,6 @@ TrajetSimple* Catalogue::chargerTrajetSimple(ifstream &monFlux, char* villeDepRe
     getline(monFlux, villeDepart, ';');
     getline(monFlux, villeArrive, ';');
     getline(monFlux, moyenTransport);
-
-    cout << "Ville de départ : " << villeDepart << endl;
-    cout << "Ville d'arrivée : " << villeArrive << endl;
-    cout << "Moyen de transport : " << moyenTransport << endl;
-
 
     MoyenTransport mt = static_cast<MoyenTransport>(stoi(moyenTransport));
     const char* vd = villeDepart.c_str();
@@ -669,7 +665,7 @@ TrajetSimple* Catalogue::chargerTrajetSimple(ifstream &monFlux, char* villeDepRe
 }
 
 
-TrajetCompose* Catalogue::chargerTrajetCompose(ifstream &monFlux, char* villeDepRequis, char* villeArrRequis)
+TrajetCompose* Catalogue::chargerTrajetCompose(ifstream &monFlux, const char* villeDepRequis, const char* villeArrRequis)
 {
 
     string villeDepart;
@@ -681,7 +677,9 @@ TrajetCompose* Catalogue::chargerTrajetCompose(ifstream &monFlux, char* villeDep
     getline(monFlux, villeArrive, ';');
     getline(monFlux, nbTrajets);
 
-    if((villeDepRequis == "*" && villeArrRequis == "*") || (villeDepRequis == villeDepart && villeArrRequis == "*") || (villeArrRequis == villeArrive && villeDepRequis == "*") || ( villeDepRequis == villeDepart && villeArrRequis == villeArrive))
+    string symbol = "*";
+
+    if((villeDepRequis == symbol  && villeArrRequis == symbol) || (villeDepRequis == villeDepart && villeArrRequis == symbol) || (villeArrRequis == villeArrive && villeDepRequis == symbol) || ( villeDepRequis == villeDepart && villeArrRequis == villeArrive))
     {
         TrajetCompose *tc = new TrajetCompose();
 

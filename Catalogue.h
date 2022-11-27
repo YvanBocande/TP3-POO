@@ -128,13 +128,13 @@ protected:
 
     void chargerParSelection(char* nomFichier);
     
-    const void lireCatalogue(char* nomFichier, char* laVilleDep, char* laVilleArr, char type);
+    const void lireCatalogue(const char* nomFichier, const char* laVilleDep, const char* laVilleArr,const char type);
 
     const void lireCatalogueIntervalle(char* nomFichier, int indiceDepart, int indiceArrivee);
 
-    TrajetSimple* chargerTrajetSimple(ifstream &monFlux, char* villeDepRequis, char* villeArrRequis);
+    TrajetSimple* chargerTrajetSimple(ifstream &monFlux,const char* villeDepRequis, const char* villeArrRequis);
 
-    TrajetCompose* chargerTrajetCompose(ifstream &fmonFlux, char* villeDepRequis, char* villeArrRequis);
+    TrajetCompose* chargerTrajetCompose(ifstream &fmonFlux, const char* villeDepRequis, const char* villeArrRequis);
 
     const void charger();
 
