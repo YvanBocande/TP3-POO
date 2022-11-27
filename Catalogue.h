@@ -123,23 +123,84 @@ protected:
     void sauvegarderParSelection(ofstream & os) const;
 
     void chargerParType(char* nomFichier);
+    // Mode d'emploi :
+    // demande à l'utilisateur de choisir un type de trajet à charger et lance lireCatalogue avec le bon type de trajet
+    //
+    // @param nomFichier le nom du fichier à charger
+    //
 
     void chargerParDepartArrivee(char* nomFichier);
+    // Mode d'emploi :
+    //demande à l'utilisateur de choisir une ville de départ et une ville d'arrivée et lance lireCatalogue avec les bonnes villes
+    //
+    // @param nomFichier le nom du fichier à charger
+    //
 
     void chargerParSelection(char* nomFichier);
+    // Mode d'emploi :
+    // demande à l'utilisateur de choisir l'interval de trajets à charger et lance lireCatalogueInterval avec les bonnes valeurs
+    // il verifie que les valeurs sont correctes
+    //
+    // @param nomFichier le nom du fichier à charger
+    //
     
     const void lireCatalogue(const char* nomFichier, const char* laVilleDep, const char* laVilleArr,const char type);
+    // Mode d'emploi :
+    //
+    // lit le fichier nomFichier et ajoute les trajets correspondant aux critères de recherche
+    // il utilise les méthodes lireTrajetSimple et lireTrajetCompose afin de charger les trajets
+    //
+    // @param nomFichier le nom du fichier à charger
+    // @param villeDepRequis la ville de départ requise pour la selection, "*" si aucune ville de départ n'est requise
+    // @param villeArrRequis la ville d'arrivée requise pour la selection, "*" si aucune ville d'arrivée n'est requise
+    // @param type le type de trajet à charger, '*' si tous les types de trajets sont à charger
+
 
     const void lireCatalogueIntervalle(char* nomFichier, int indiceDepart, int indiceArrivee);
+    // Mode d'emploi :
+    //
+    // lit le fichier nomFichier et ajoute les trajets correspondant à l'intervalle de trajets
+    // il utilise les méthodes lireTrajetSimple et lireTrajetCompose afin de charger les trajets
+    //
+    // @param nomFichier le nom du fichier à charger
+    // @param indiceDepart l'indice du premier trajet à charger
+    // @param indiceArrivee l'indice du dernier trajet à charger
 
     TrajetSimple* chargerTrajetSimple(ifstream &monFlux,const char* villeDepRequis, const char* villeArrRequis);
+    // Mode d'emploi :
+    //
+    // lit la ligne du fichier et crée un trajet simple si les villes correspondent aux critères de recherche
+    //
+    // @param monFlux le flux de lecture du fichier
+    // @param villeDepRequis la ville de départ requise pour la selection, "*" si aucune ville de départ n'est requise
+    // @param villeArrRequis la ville d'arrivée requise pour la selection, "*" si aucune ville d'arrivée n'est requise
+    // @return un pointeur sur un trajet simple ou NULL si le trajet ne correspond pas aux critères de recherche
+    //
 
     TrajetCompose* chargerTrajetCompose(ifstream &fmonFlux, const char* villeDepRequis, const char* villeArrRequis);
+    // Mode d'emploi :
+    //
+    //
+    // lit la ligne du fichier et crée un trajet composé si les villes correspondent aux critères de recherche
+    // 
+    // @param monFlux le flux de lecture du fichier
+    // @param villeDepRequis la ville de départ requise pour la selection, "*" si aucune ville de départ n'est requise
+    // @param villeArrRequis la ville d'arrivée requise pour la selection, "*" si aucune ville d'arrivée n'est requise
+    // @return un pointeur sur un trajet composé ou NULL si le trajet ne correspond pas aux critères de recherche
 
     const void charger();
+    // Mode d'emploi :
+    //
+    // demande à l'utilisateur le nom du fichier de sauvegarde, vérifiz qu'il existe et demande le type de chargement
+    // il lance ensuite la bonne méthode en fonction du choix de l'utilisateur
+
 
     const int lireNbTrajetsFichier(char* nomFichier);
-
+    // Mode d'emploi :
+    //
+    // lit le fichier nomFichier et renvoie le nombre de trajets qu'il contient dans les métadonnées
+    //
+    // @param nomFichier le nom du fichier à charger
 //----------------------------------------------------- Attributs protégés
     Collection col;
 
