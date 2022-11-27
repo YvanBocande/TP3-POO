@@ -285,7 +285,212 @@ void Catalogue::creerTrajetCompose()
 
 const void Catalogue::charger()
 {
-    lireCatalogueIntervalle("./data/exemple.data", 6 , 9);
+    char nomDuFichier[tailleMaxNomVille];
+    cout << "Entrez le nom du fichier de sauvegarde" << endl;
+    cin >> nomDuFichier;
+
+    char cheminDuFichier[tailleMaxNomVille + 10] = "./data/";
+
+    strcat(cheminDuFichier, nomDuFichier);
+
+    ifstream fluxTest(cheminDuFichier);
+
+    if(fluxTest)
+    {
+        fluxTest.close();
+        for(;;)
+        {
+            int choix;
+
+            cout << "Type de chargement :" << endl;
+            cout << "\t 1 : Sans critère de sélecetion" << endl;
+            cout << "\t 2 : Selon le type" << endl;
+            cout << "\t 3 : Selon le départ et / ou l'arrivée" << endl;
+            cout << "\t 4 : Selon un interval" << endl;
+
+            if(cin >> choix){
+                if(choix == 1){
+                    lireCatalogue(cheminDuFichier, "*", "*", '*');
+                    break;
+                }else if(choix == 2){
+                    chargerParType(cheminDuFichier);
+                    break;
+                }else if(choix == 3){
+                    chargerParDepartArrivee(cheminDuFichier);
+                    break;    
+                }else if(choix == 4){
+                    chargerParSelection(cheminDuFichier);
+                    break;
+                }else{
+                    cout << "Choix erronné";
+                }
+            }else{
+                cout << "Error";
+            }
+        }
+    } else {
+        cout << "Le fichier n'existe pas" << endl;
+    }
+}
+
+void Catalogue::chargerParType(char* nomFichier)
+{
+    int choix;
+
+    for(;;)
+    {
+        cout << "Quel type charger :" << endl;
+        cout << "\t 1 : Trajets simples" << endl;
+        cout << "\t 2 : Trajet composes" << endl;
+        cin >> choix;
+
+        switch(choix){
+            case 1:
+                lireCatalogue(nomFichier, "*", "*", 's');
+                break;
+            case 2:
+                lireCatalogue(nomFichier, "*", "*", 'c');
+                break;
+            default:
+                cout << "Choix erronné" << endl;
+                continue;
+        }
+
+        break;
+    }
+}
+
+void Catalogue::chargerParDepartArrivee(char* nomFichier)
+{
+    int choixDepart;
+    char depart[tailleMaxNomVille];
+    char arrivee[tailleMaxNomVille];
+
+    for(;;)
+    {
+        cout << "Voulez vous indiquer une ville de départ ?" << endl;
+        cout << "\t 1 : Oui" << endl;
+        cout << "\t 2 : Non" << endl;
+        cin >> choixDepart;
+
+        switch(choixDepart){
+            case 1:
+                break;
+            case 2:
+                break;
+            default:
+                cout << "Choix erronné" << endl;
+                continue;
+        }
+
+        break;
+    }
+
+    int choixArrivee = choixDepart == 2 ? 1 : 2;
+
+    if(choixDepart == 1){
+        cout << "Indiquez la ville de départ :" << endl;
+        cin >> depart;
+
+        for(;;)
+        {
+            cout << "Voulez vous indiquer une ville d'arrivée ?" << endl;
+            cout << "\t 1 : Oui" << endl;
+            cout << "\t 2 : Non" << endl;
+            cin >> choixArrivee;
+
+            switch(choixArrivee){
+                case 1:
+                    break;
+                case 2:
+                    break;
+                default:
+                    cout << "Choix erronné" << endl;
+                    continue;
+            }
+
+            break;
+        }
+    }else{
+        depart[0] = '*';
+        depart[1] = '\0';
+    }
+
+    if(choixArrivee == 1){
+        cout << "Indiquez la ville d'arrivée :" << endl;
+        cin >> arrivee;
+    }else{
+        arrivee[0] = '*';
+        arrivee[1] = '\0';
+    }
+
+    lireCatalogue(nomFichier, depart, arrivee, '*');
+}
+
+void Catalogue::chargerParSelection(char* nomFichier)
+{
+    int nbTrajets = lireNbTrajetsFichier(nomFichier);
+
+    int startIndex;
+
+    for(;;)
+    {
+        cout << "Indiquez l'indice n du début de l'intervalle (entre 1 et " << nbTrajets << ") :" << endl;
+        cin >> startIndex;
+
+        if(startIndex < 1){
+            cout << "Indice trop petit" << endl;
+            continue;
+        }else if(startIndex > nbTrajets){
+            cout << "Indice trop grand" << endl;
+            continue;
+        }
+
+        break;
+    }
+
+    int endIndex;
+
+    for(;;)
+    {
+        cout << "Indiquez l'indice m de la fin de l'intervalle (entre " << startIndex << " et " << nbTrajets << ") :" << endl;
+        cin >> endIndex;
+
+        if(endIndex < startIndex){
+            cout << "Indice trop petit" << endl;
+            continue;
+        }else if(startIndex > nbTrajets){
+            cout << "Indice trop grand" << endl;
+            continue;
+        }
+
+        break;
+    }
+
+    lireCatalogueIntervalle(nomFichier, startIndex-1, endIndex-1);
+}
+
+const int Catalogue::lireNbTrajetsFichier(char* nomFichier){
+    ifstream flux(nomFichier);
+
+    if(flux)
+    {
+        char tmp;
+        int nbTs;
+        int nbTc;
+
+
+        flux >> nbTs;
+        flux >> tmp;
+        flux >> nbTc;
+
+        return nbTs + nbTc;
+        flux.close();
+        
+    }else{
+        cout << "Erreur lors de l'ouverture du fichier" << endl;
+        return 0;
+    }
 }
 
 const void Catalogue::lireCatalogue(char* nomFichier, char* villeDepRequis, char* villeArrRequis, char type)
@@ -352,7 +557,7 @@ const void Catalogue::lireCatalogue(char* nomFichier, char* villeDepRequis, char
 
             nbTrajetslus++;
         }
-        
+        monFlux.close();
     }
     else
     {
@@ -368,6 +573,7 @@ const void Catalogue::lireCatalogueIntervalle(char* nomFichier, int indiceDepart
     {
         char tmp;
         string trash;
+
         int nbTs;
         int nbTc;
 
@@ -378,38 +584,37 @@ const void Catalogue::lireCatalogueIntervalle(char* nomFichier, int indiceDepart
         string typeTrajet;
 
         int trajetsParcourus = 0;
-        while (trajetsParcourus != indiceDepart-1)
+        
+        getline(monFlux, trash);
+
+        if(indiceDepart > 0)
         {
-            getline(monFlux, typeTrajet, ';');
-            
-            if(trajetsParcourus==0)
+            while (trajetsParcourus != indiceDepart-1)
             {
-                typeTrajet = typeTrajet.substr(1);
-            }
-
-            cout<<"type: "<<typeTrajet<<endl;
-
-            if(typeTrajet == "s")
-            {
-                getline(monFlux, trash);
-            } else {
-                getline(monFlux, trash, ';');
-                getline(monFlux, trash, ';');
-
-                string strNbTrajetsSimples;
-                getline(monFlux, strNbTrajetsSimples);
-                int nbTrajetsSimples = stoi(strNbTrajetsSimples);
-                for(int i = 0; i < nbTrajetsSimples; i++)
+                getline(monFlux,  typeTrajet, ';');
+                if(typeTrajet == "s")
                 {
                     getline(monFlux, trash);
-                }
-            }
+                } else {
+                    getline(monFlux, trash, ';');
+                    getline(monFlux, trash, ';');
 
-            trajetsParcourus++;
+                    string strNbTrajetsSimples;
+                    getline(monFlux, strNbTrajetsSimples);
+
+                    int nbTrajetsSimples = stoi(strNbTrajetsSimples);
+                    for(int i = 0; i < nbTrajetsSimples; i++)
+                    {
+                        getline(monFlux, trash);
+                    }
+                }
+
+                trajetsParcourus++;
+            }
         }
         
 
-        for(int i = indiceDepart; i < indiceArrivee+1; i++)
+        for(int i = indiceDepart; i < indiceArrivee+1; ++i)
         {
             getline(monFlux,  typeTrajet, ';');
 
@@ -424,6 +629,7 @@ const void Catalogue::lireCatalogueIntervalle(char* nomFichier, int indiceDepart
 
             trajetsParcourus++;
         }
+        monFlux.close();
     }
     else
     {
@@ -441,6 +647,10 @@ TrajetSimple* Catalogue::chargerTrajetSimple(ifstream &monFlux, char* villeDepRe
     getline(monFlux, villeDepart, ';');
     getline(monFlux, villeArrive, ';');
     getline(monFlux, moyenTransport);
+
+    cout << "Ville de départ : " << villeDepart << endl;
+    cout << "Ville d'arrivée : " << villeArrive << endl;
+    cout << "Moyen de transport : " << moyenTransport << endl;
 
 
     MoyenTransport mt = static_cast<MoyenTransport>(stoi(moyenTransport));
@@ -717,3 +927,5 @@ void Catalogue::sauvegarderParSelection(ofstream & os) const
 
     col.Sauvegarder(os, BOTH, "", "", startIndex - 1, endIndex);
 }
+
+

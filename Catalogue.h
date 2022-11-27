@@ -121,6 +121,12 @@ protected:
     void sauvegarderParDepartArrivee(ofstream & os) const;
 
     void sauvegarderParSelection(ofstream & os) const;
+
+    void chargerParType(char* nomFichier);
+
+    void chargerParDepartArrivee(char* nomFichier);
+
+    void chargerParSelection(char* nomFichier);
     
     const void lireCatalogue(char* nomFichier, char* laVilleDep, char* laVilleArr, char type);
 
@@ -131,6 +137,8 @@ protected:
     TrajetCompose* chargerTrajetCompose(ifstream &fmonFlux, char* villeDepRequis, char* villeArrRequis);
 
     const void charger();
+
+    const int lireNbTrajetsFichier(char* nomFichier);
 
 //----------------------------------------------------- Attributs protégés
     Collection col;
